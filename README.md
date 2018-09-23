@@ -8,7 +8,7 @@ install mysql 5.7.17 or higher
 
 create "my_test_db" database 
 
-MySql login and password: root
+MySql login and password: root/rootPassword
 
 ## Build & development
 
