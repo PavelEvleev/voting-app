@@ -6,7 +6,7 @@ install Java 1.8 or higher
 
 install mysql 5.7.17 or higher
 
-create "app" database 
+create "my_test_db" database 
 
 MySql login and password: root
 
