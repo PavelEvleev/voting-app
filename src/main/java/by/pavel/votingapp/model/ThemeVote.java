@@ -6,9 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-/**
- * Created by pavel on 20.09.18.
- */
 @Entity
 @Table(name = "theme")
 public class ThemeVote {

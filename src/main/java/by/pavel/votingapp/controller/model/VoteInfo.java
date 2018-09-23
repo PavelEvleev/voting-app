@@ -1,20 +1,18 @@
 package by.pavel.votingapp.controller.model;
 
-import by.pavel.votingapp.model.ThemeAnswer;
-
 import java.util.List;
 
-/**
- * Created by pavel on 22.09.18.
- */
 public class VoteInfo {
 
     private long voteId;
 
-    private List<ThemeAnswer> answers;
+    private String question;
 
-    public VoteInfo(long voteId, List<ThemeAnswer> answers) {
+    private List<AnswerInfo> answers;
+
+    public VoteInfo(long voteId, String question, List<AnswerInfo> answers) {
         this.voteId = voteId;
+        this.question = question;
         this.answers = answers;
     }
 
@@ -26,11 +24,19 @@ public class VoteInfo {
         this.voteId = voteId;
     }
 
-    public List<ThemeAnswer> getAnswers() {
+    public List<AnswerInfo> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(List<ThemeAnswer> answers) {
+    public void setAnswers(List<AnswerInfo> answers) {
         this.answers = answers;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }

@@ -1,8 +1,6 @@
 package by.pavel.votingapp.controller.model;
 
-/**
- * Created by pavel on 22.09.18.
- */
+
 public class VotingCommand {
 
     private String uuid;

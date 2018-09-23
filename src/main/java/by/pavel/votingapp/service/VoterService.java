@@ -8,9 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by pavel on 22.09.18.
- */
+
 @Service
 public class VoterService {
 

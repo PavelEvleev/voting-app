@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Created by pavel on 22.09.18.
- */
+
 @RestController
 @RequestMapping("/api/v1")
 public class ThemeVoteController {
@@ -49,23 +47,31 @@ public class ThemeVoteController {
 
     @PostMapping("/theme-vote/voting")
     public ResponseEntity voting(@RequestBody VotingCommand votingCommand) {
-        Voter voter = this.voterService.createVoter(votingCommand.getVoter());
-        ThemeVote vote = this.voteService.getByUUID(votingCommand.getUuid());
-        ThemeAnswer answer = this.answerService.voting(vote, votingCommand.isAnswer(), voter);
-        vote.addAnswer(answer);
-        this.voteService.update(vote);
-        return answer != null ? ResponseEntity.ok().build() : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        if (this.voteService.voteIsActive(votingCommand.getUuid())) {
+            Voter voter = this.voterService.createVoter(votingCommand.getVoter());
+            ThemeVote vote = this.voteService.getByUUID(votingCommand.getUuid());
+            ThemeAnswer answer = this.answerService.voting(vote, votingCommand.isAnswer(), voter);
+            vote.addAnswer(answer);
+            this.voteService.update(vote);
+            return answer != null ? ResponseEntity.ok().build()
+                    : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Voting is closed");
     }
 
-    @GetMapping("/theme-vote/{voteId}")
+    @GetMapping("/theme-vote/{voteId}/answers")
     public ResponseEntity<VoteInfo> findAllVoteAnswers(@PathVariable long voteId) {
-        VoteInfo info = new VoteInfo(voteId, this.answerService.getVoteAnswers(voteId));
+        VoteInfo info =
+                new VoteInfo(
+                        voteId,
+                        this.voteService.getVoteQuestion(voteId),
+                        this.answerService.getVoteAnswersInfo(voteId));
         return ResponseEntity.ok(info);
     }
 
-    @GetMapping("/themes-vote")
-    public ResponseEntity<List<ThemeVote>> findAll() {
-        return ResponseEntity.ok(this.voteService.findAll());
+    @GetMapping("/themes-vote/active")
+    public ResponseEntity<List<ThemeVote>> findAllActive() {
+        return ResponseEntity.ok(this.voteService.findAllActive());
     }
 
 

@@ -7,9 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by pavel on 20.09.18.
- */
 @Entity
 @Table(name = "voter")
 public class Voter {
@@ -30,6 +27,7 @@ public class Voter {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "voter")
     private List<ThemeAnswer> answers = new ArrayList<>();
 

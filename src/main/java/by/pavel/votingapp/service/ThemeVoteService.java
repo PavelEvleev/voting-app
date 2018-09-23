@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by pavel on 22.09.18.
- */
+
 @Service
 public class ThemeVoteService {
 
@@ -26,8 +24,8 @@ public class ThemeVoteService {
         return this.repository.saveAndFlush(new ThemeVote(command.getUuid(), command.isActive(), command.getTitle()));
     }
 
-    public List<ThemeVote> findAll() {
-        return this.repository.findAll();
+    public List<ThemeVote> findAllActive() {
+        return this.repository.getThemeVoteByActiveTrue();
     }
 
     public ThemeVote activeVote(ActiveVoteCommand voteCommand) {
@@ -46,5 +44,13 @@ public class ThemeVoteService {
 
     public ThemeVote getByUUID(String uuid) {
         return this.repository.getByUuid(uuid);
+    }
+
+    public String getVoteQuestion(long voteId) {
+        return this.repository.getTitleByThemeVote_Id(voteId);
+    }
+
+    public boolean voteIsActive(String uuid) {
+        return this.repository.getByUuid(uuid).isActive();
     }
 }

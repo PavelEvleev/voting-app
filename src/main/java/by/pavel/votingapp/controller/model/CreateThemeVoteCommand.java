@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.UUID;
 
-/**
- * Created by pavel on 22.09.18.
- */
+
 public class CreateThemeVoteCommand {
 
     @JsonIgnore
